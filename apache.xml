@@ -1,0 +1,26 @@
+<project name="Unitconverter" default="run" basedir=".">
+    <!-- Define properties -->
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="main.class" value="p5.Unitconverter"/>
+
+    <!-- Define targets -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.dir}"/>
+    </target>
+
+    <target name="run" depends="compile">
+        <!-- Use input task to provide input -->
+        <input message="Enter value in feet: " addproperty="feetValue"/>
+        <input message="Enter value in meters: " addproperty="metersValue"/>
+
+        <java classname="${main.class}" classpath="${build.dir}" fork="true">
+            <arg value="${feetValue}"/>
+            <arg value="${metersValue}"/>
+        </java>
+    </target>
+</project>
